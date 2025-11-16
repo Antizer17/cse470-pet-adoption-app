@@ -42,8 +42,12 @@ const Login = () => {
   return (
     <div className="login-container">
       <div className="login-form">
-        <h2>🚀 Pilot Login</h2>
-        <p>Access Pet Adoption Command Center</p>
+        <div className='header'>
+         
+          <h2>🐾 Fursure</h2>
+          <p className='slogan'>Your one-stop haven for happy pets.</p>
+        </div>
+       
         
         <form onSubmit={onSubmit}>
           <div className="form-group">
@@ -56,9 +60,8 @@ const Login = () => {
               required
               placeholder="Enter your email"
             />
-          </div>
           
-          <div className="form-group">
+         
             <label>Password</label>
             <input
               type="password"
@@ -71,13 +74,18 @@ const Login = () => {
           </div>
           
           <button type="submit" className="login-btn">
-            🛩️ Engage Login
+            Login
           </button>
         </form>
+
         
         <div className="signup-link">
-          <p>Not a pilot yet? <a href="/register">Request clearance</a></p>
+          <p>Not a pilot yet? <a href="/register">Join Fursure</a></p>
         </div>
+
+      </div>
+      <div className="image-container">
+        <img src="https://iili.io/fHM4Fs4.png" alt="Pilot Login" className="login-image" />
       </div>
     </div>
   );
