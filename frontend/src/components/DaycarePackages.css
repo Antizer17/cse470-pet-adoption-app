@@ -1,0 +1,62 @@
+﻿.packages-container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 2rem auto;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  
+  background-color: #fdfaf7; /* Soft cream/beige background */
+  padding: 2rem;            /* Adds space inside the container */
+  border-radius: 12px;       /* Softens the container's corners */
+}
+
+.packages-grid {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.package-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1.5rem;
+  width: 300px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  
+  background-color: #ffffff; /* Make cards white to pop */
+}
+
+.package-card h3 {
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.package-card .price {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #8D6E63; /* Changed to paw-brown */
+  margin: 0.5rem 0;
+}
+
+.package-card .duration {
+  font-size: 1rem;
+  color: #777;
+  margin-bottom: 1rem;
+}
+
+.package-card button {
+  background-color: #8D6E63; /* Paw-brown */
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.package-card button:hover {
+  background-color: #6D4C41; /* Darker paw-brown */
+}
