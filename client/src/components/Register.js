@@ -56,38 +56,34 @@ const Register = () => {
   return (
     <div className="register-container">
       <div className="register-form">
-        <div className='header'>
+        <div className='register-header'>
           <h2>🐾 Join Fursure</h2>
           <p className='slogan'>Start your pet adoption journey today.</p>
         </div>
         
         <form onSubmit={onSubmit}>
-          <div className="form-group">
-            <label>Full Name</label>
+          <div className="register-form-group">
+            <label htmlFor='name'>Full Name</label>
             <input
               type="text"
               name="name"
+              id='name'
               value={name}
               onChange={onChange}
               required
               placeholder="Enter your full name"
             />
-          </div>
-
-          <div className="form-group">
-            <label>Email Address</label>
+            <label htmlFor="email">Email Address</label>
             <input
               type="email"
               name="email"
+              id='email'
               value={email}
               onChange={onChange}
               required
               placeholder="Enter your email"
             />
-          </div>
-
-          <div className="form-group">
-            <label>Password</label>
+            <label htmlFor="password">Password</label>
             <input
               type="password"
               name="password"
@@ -96,9 +92,8 @@ const Register = () => {
               required
               placeholder="Create a password (min 6 characters)"
             />
-          </div>
 
-          <div className="form-group">
+
             <label>Confirm Password</label>
             <input
               type="password"
@@ -118,9 +113,6 @@ const Register = () => {
         <div className="login-link">
           <p>Already have an account? <a href="/login">Sign in here</a></p>
         </div>
-      </div>
-      <div className="image-container">
-        <img src="https://iili.io/fHM4Fs4.png" alt="Pet Adoption" className="register-image" />
       </div>
     </div>
   );

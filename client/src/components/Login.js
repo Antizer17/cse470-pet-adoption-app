@@ -80,7 +80,7 @@ const Login = () => {
 
         
         <div className="signup-link">
-          <p>Not a pilot yet? <a href="/register">Join Fursure</a></p>
+          <p>Not a member? <a href="/register">Join Fursure</a></p>
         </div>
 
       </div>

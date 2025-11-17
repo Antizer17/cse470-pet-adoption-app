@@ -89,7 +89,7 @@ input {
     }
     .image-container {
         display: none;
-    }
+    } 
 }
 @media screen and (max-height: 768px) {
     .login-container {
@@ -102,4 +102,30 @@ input {
     }
 }
 
+label {
+    font-weight:bold;
+}
+.login-btn {
+    width:4rem;
+    padding:0.5rem;
+    font-family: Roboto, sans-serif;
 
+}
+a { 
+    text-decoration: none;
+    color: #C96F48;
+}
+a:hover {
+    text-decoration: underline;
+    color: darkred;
+}   
+.signup-link {
+    font-style: normal;
+    font-family: Roboto, sans-serif;
+    font-size: 0.9rem;
+
+}
+.login-btn:hover {
+    background-color:#C96F48;
+    
+}
