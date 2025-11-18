@@ -1,19 +1,66 @@
 ﻿const express = require('express');
 const { 
-  // These functions are imported from the controller file
   getDaycarePackages,
   createDaycarePackage 
 } = require('../controllers/daycarePackageController');
+const { protect } = require('../middleware/auth');
+const DaycarePackage = require('../models/DaycarePackage');
 
-// Create a new router instance
 const router = express.Router();
 
-// GET /api/daycare - Fetch all packages
+// SEED ROUTE - Add sample data to database
+router.get('/seed', async (req, res) => {
+  try {
+    console.log('🌱 Seeding daycare packages...');
+    
+    const samplePackages = [
+      {
+        name: "Basic Daycare",
+        price: 500,
+        duration: "4 hours",
+        description: "Perfect for busy mornings or afternoons",
+        features: ["Feeding twice", "Basic grooming", "Play time", "Regular updates"]
+      },
+      {
+        name: "Premium Daycare", 
+        price: 800,
+        duration: "8 hours", 
+        description: "Complete day care for your pet",
+        features: ["Feeding three times", "Full grooming", "Training sessions", "Medical checkup"]
+      },
+      {
+        name: "Luxury Package",
+        price: 1200,
+        duration: "12 hours",
+        description: "Ultimate care experience for your pet",
+        features: ["Unlimited feeding", "Spa treatment", "One-on-one training", "Veterinary consultation"]
+      }
+    ];
+
+    await DaycarePackage.deleteMany({});
+    const packages = await DaycarePackage.insertMany(samplePackages);
+    
+    console.log(`✅ Seeded ${packages.length} packages`);
+    
+    res.json({ 
+      success: true,
+      message: 'Daycare packages seeded successfully!',
+      count: packages.length,
+      packages: packages 
+    });
+  } catch (error) {
+    console.error('❌ Seed error:', error);
+    res.status(500).json({ 
+      success: false,
+      error: error.message 
+    });
+  }
+});
+
+// GET all daycare packages
 router.get('/', getDaycarePackages);
 
-// POST /api/daycare - Create a new package
-// ⭐ CRITICAL FIX: Corrected the typo from 'createDayCodePackage' to 'createDaycarePackage'
-router.post('/', createDaycarePackage); 
+// CREATE new daycare package
+router.post('/', protect, createDaycarePackage);
 
-// Export the router so server.js can use it
 module.exports = router;

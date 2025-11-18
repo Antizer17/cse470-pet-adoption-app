@@ -1,55 +1,61 @@
-﻿// X:\cse4T70-pet-adoption-app\server\controllers\daycarePackageController.js
+﻿const DaycarePackage = require('../models/DaycarePackage');
 
-// This is the FINAL, REAL code that talks to the database.
-const DaycarePackage = require('../models/DaycarePackageModel');
-const mongoose = require('mongoose');
-
-// @desc    GET all daycare packages
+// @desc    Get all daycare packages
 // @route   GET /api/daycare
 // @access  Public
 const getDaycarePackages = async (req, res) => {
   try {
-    // Find all documents in the 'daycarepackages' collection
-    const packages = await DaycarePackage.find({}).sort({ createdAt: 1 });
+    const packages = await DaycarePackage.find({ isActive: true }).sort({ createdAt: -1 });
 
-    // Respond with the packages and a 200 OK status
-    res.status(200).json(packages);
+    res.json({
+      success: true,
+      message: 'Daycare packages retrieved successfully',
+      data: packages
+    });
   } catch (error) {
-    // Handle any errors during the database query
-    res.status(400).json({ error: error.message });
+    console.error(error);
+    res.status(500).json({
+      success: false,
+      message: 'Server error while fetching packages'
+    });
   }
 };
 
-// @desc    POST a new daycare package
+// @desc    Create a daycare package
 // @route   POST /api/daycare
-// @access  Private (for now)
+// @access  Private/Admin
 const createDaycarePackage = async (req, res) => {
-  const { name, description, price, duration, features } = req.body;
-
-  // Simple validation check
-  let emptyFields = [];
-  if (!name) emptyFields.push('name');
-  if (!description) emptyFields.push('description');
-  if (!price) emptyFields.push('price');
-  if (!duration) emptyFields.push('duration');
-
-  if (emptyFields.length > 0) {
-    return res.status(400).json({ error: 'Please fill in all required fields.', emptyFields });
-  }
-
-  // Try to add the package to the database
   try {
+    const { name, description, price, duration, features } = req.body;
+
+    // Check if package already exists
+    const packageExists = await DaycarePackage.findOne({ name });
+    if (packageExists) {
+      return res.status(400).json({
+        success: false,
+        message: 'Package with this name already exists'
+      });
+    }
+
     const daycarePackage = await DaycarePackage.create({
       name,
       description,
       price,
       duration,
-      features: Array.isArray(features) ? features : [features]
+      features
     });
 
-    res.status(201).json(daycarePackage);
+    res.status(201).json({
+      success: true,
+      message: 'Daycare package created successfully',
+      data: daycarePackage
+    });
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    console.error(error);
+    res.status(500).json({
+      success: false,
+      message: 'Server error while creating package'
+    });
   }
 };
 
