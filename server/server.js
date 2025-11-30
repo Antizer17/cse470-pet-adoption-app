@@ -20,6 +20,7 @@ app.get('/', (req, res) => {
 
 // CRITICAL FIX: Register your new API endpoint
 app.use('/api/daycare', daycareRoutes); 
+app.use('/api/foods', require('./routes/foodRoutes'));  
 
 // Database connection & Server Listener Logic
 const MONGODB_URI = process.env.MONGODB_URI; 
