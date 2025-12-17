@@ -3,23 +3,30 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv').config();
 
-// CRITICAL IMPORT: Import your new daycare routes
+// Import routes
 const daycareRoutes = require('./routes/daycareRoutes'); 
+const petRoutes = require('./routes/petRoutes.js');
+const adoptionRoutes = require('./routes/adoptionRoutes.js');
+const adminRoutes = require('./routes/adminRoutes'); // ✅ IMPORT
+const authRoutes = require('./routes/auth'); // Assuming this exists
 
 const app = express();
 
 // Middleware
 app.use(cors());
 app.use(express.json());
-app.use('/api/auth', require('./routes/auth'));
 
 // Test route
 app.get('/', (req, res) => {
   res.json({ message: '🐾 Pet Adoption API is running!' });
 });
 
-// CRITICAL FIX: Register your new API endpoint
+// ✅ CRITICAL: Register ALL routes (ADD THESE LINES)
+app.use('/api/auth', authRoutes);
+app.use('/api/admin', adminRoutes); // ✅ ADD THIS LINE - NOT A COMMENT!
 app.use('/api/daycare', daycareRoutes); 
+app.use('/api/pets', petRoutes);
+app.use('/api/adoption-requests', adoptionRoutes);
 
 // Database connection & Server Listener Logic
 const MONGODB_URI = process.env.MONGODB_URI; 

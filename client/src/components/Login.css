@@ -129,3 +129,7 @@ a:hover {
     background-color:#C96F48;
     
 }
+nav {
+    border:5px solid black;
+    display:hidden;
+}
