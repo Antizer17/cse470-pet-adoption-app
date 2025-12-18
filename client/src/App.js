@@ -15,6 +15,12 @@ function App() {
     <Router>
       <Layout> {/* ✅ ONE Layout for ALL routes */}
         <Routes>
+          
+          
+
+
+          <Route path="/foodcart" element={<FoodCart />} />
+
           {/* Public routes */}
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />

@@ -25,6 +25,7 @@ app.get('/', (req, res) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/admin', adminRoutes); // ✅ ADD THIS LINE - NOT A COMMENT!
 app.use('/api/daycare', daycareRoutes); 
+app.use('/api/foods', require('./routes/foodRoutes'));  
 app.use('/api/pets', petRoutes);
 app.use('/api/adoption-requests', adoptionRoutes);
 
