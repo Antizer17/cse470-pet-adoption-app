@@ -4,7 +4,7 @@
      height: 80vh;
      margin:auto;
      flex-direction: column;
-     justify-content: center;
+     justify-content: flex-start;
      background-color: white;
      margin-top: 8vh;
      padding:1rem 2rem;
@@ -12,7 +12,8 @@
  }  
 
 .register-form-group {
-      margin-bottom: 5.5rem;   
+      margin-bottom: 5.5rem;
+      position:relative;   
      
       margin-top: 2rem;
  }
@@ -37,4 +38,14 @@
 .register-btn:hover {
     background-color: #C96F48;
     cursor: pointer;
+}
+#role{
+   
+    padding:0.5rem;
+    position: absolute;
+   
+    top: 400px;
+    left: 0;
+    
+
 }

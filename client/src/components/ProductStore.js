@@ -32,7 +32,7 @@ const ProductStore = () => {
     fetchFoods();
   }, [category]);
 
-  return (
+  return ( 
     <div className="product-store">
       <div className="store-header">
         <h1>🛍️ Fursure Pet Store</h1>

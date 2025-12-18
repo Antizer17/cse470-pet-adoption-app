@@ -8,12 +8,13 @@ const Register = () => {
     name: '',
     email: '',
     password: '',
-    confirmPassword: ''
+    confirmPassword: '',
+    role: 'user'  // ✅ Added role with default 'user'
   });
   
   const navigate = useNavigate();
 
-  const { name, email, password, confirmPassword } = formData;
+  const { name, email, password, confirmPassword, role } = formData;
 
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -39,13 +40,30 @@ const Register = () => {
         }
       };
 
-      const body = JSON.stringify({ name, email, password });
+      // ✅ Include role in the request
+      const body = JSON.stringify({ name, email, password, role });
 
       const res = await axios.post('http://localhost:5000/api/auth/register', body, config);
       
+      // ✅ Store token and user data (including role)
       localStorage.setItem('token', res.data.data.token);
-      alert('Registration successful! Welcome to Fursure! 🎉');
-      navigate('/dashboard');
+      localStorage.setItem('user', JSON.stringify({
+        id: res.data.data._id,
+        name: res.data.data.name,
+        email: res.data.data.email,
+        role: res.data.data.role
+      }));
+      
+      alert(`Registration successful! Welcome ${name} (${role}) 🎉`);
+      
+      // ✅ Redirect based on role
+      setTimeout(() => {
+        if (role === 'admin') {
+          navigate('/admin/dashboard');
+        } else {
+          navigate('/dashboard');
+        }
+      }, 500);
       
     } catch (error) {
       console.error('Registration error:', error);
@@ -62,7 +80,7 @@ const Register = () => {
         </div>
         
         <form onSubmit={onSubmit}>
-          <div className="register-form-group">
+          <form className="register-form-group">
             <label htmlFor='name'>Full Name</label>
             <input
               type="text"
@@ -73,6 +91,7 @@ const Register = () => {
               required
               placeholder="Enter your full name"
             />
+            
             <label htmlFor="email">Email Address</label>
             <input
               type="email"
@@ -83,16 +102,30 @@ const Register = () => {
               required
               placeholder="Enter your email"
             />
+            
+            {/* ✅ Add Role Selection Field */}
+            <label htmlFor="role">Account Type</label>
+            <select
+              name="role"
+              id="role"
+              value={role}
+              onChange={onChange}
+              className="role-select"
+            >
+              <option value="user">Pet Owner/Adopter</option>
+              <option value="admin">Administrator</option>
+            </select>
+            
             <label htmlFor="password">Password</label>
             <input
               type="password"
               name="password"
+              id="password"
               value={password}
               onChange={onChange}
               required
               placeholder="Create a password (min 6 characters)"
             />
-
 
             <label>Confirm Password</label>
             <input
@@ -103,7 +136,7 @@ const Register = () => {
               required
               placeholder="Confirm your password"
             />
-          </div>
+          </form>
           
           <button type="submit" className="register-btn">
             Create Account
