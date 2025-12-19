@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom"; // ✅ Add useLocation
+import { Link, useLocation } from "react-router-dom"; 
 import "./layout.css";
 
 const Layout = ({ children }) => {
@@ -8,10 +8,14 @@ const Layout = ({ children }) => {
     return saved ? JSON.parse(saved) : false;
   });
   
-  const location = useLocation(); // ✅ Get current route
+  // ✅ INSERTION 1: Get user info to check if they are an Admin
+  const user = JSON.parse(localStorage.getItem("user"));
+  const isAdmin = user?.role === 'admin' || user?.isAdmin === true;
+
+  const location = useLocation(); 
   const isLoginPage = location.pathname === '/login';
   const isRegisterPage = location.pathname === '/register';
-  const hideNavbar = isLoginPage || isRegisterPage; // ✅ Hide on login/register
+  const hideNavbar = isLoginPage || isRegisterPage; 
 
   useEffect(() => {
     localStorage.setItem("darkMode", JSON.stringify(darkMode));
@@ -72,7 +76,6 @@ const Layout = ({ children }) => {
         transition: "all 0.3s ease"
       }}
     >
-      {/* ✅ Conditionally render Navbar */}
       {!hideNavbar && (
         <nav
           style={{
@@ -89,7 +92,6 @@ const Layout = ({ children }) => {
             transition: "all 0.3s ease"
           }}
         >
-          {/* Dark Mode Toggle Button */}
           <button
             onClick={toggleDarkMode}
             style={{
@@ -238,10 +240,37 @@ const Layout = ({ children }) => {
           >
             📦 Daycare Packages
           </Link>
+
+          {/* ✅ INSERTION 2: Admin Dashboard Button (Only visible if isAdmin is true) */}
+          {isAdmin && (
+            <Link
+              to="/admin/daycare"
+              style={{
+                padding: "10px 18px",
+                borderRadius: "12px",
+                background: "#ff9800", // Distinct Orange for Admin
+                border: "none",
+                textDecoration: "none",
+                fontWeight: "600",
+                color: "white",
+                transition: "all 0.3s ease",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "#e68900"; // Darker Orange on hover
+                e.currentTarget.style.transform = "translateY(-2px)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "#ff9800";
+                e.currentTarget.style.transform = "translateY(0)";
+              }}
+            >
+              🛡️ Admin Dashboard
+            </Link>
+          )}
+
         </nav>
       )}
 
-      {/* ✅ Conditionally render Title (hide on login/register) */}
       {!hideNavbar && (
         <h1
           style={{
@@ -257,7 +286,6 @@ const Layout = ({ children }) => {
         </h1>
       )}
 
-      {/* ✅ Conditionally render Dark Mode Indicator */}
       {!hideNavbar && (
         <div style={{
           textAlign: "center",
@@ -270,10 +298,8 @@ const Layout = ({ children }) => {
         </div>
       )}
 
-      {/* Main content */}
       <main>{children}</main>
 
-      {/* ✅ Conditionally render Footer (hide on login/register) */}
       {!hideNavbar && (
         <footer style={{
           textAlign: "center",
