@@ -11,6 +11,8 @@ import AdminDashboard from './components/AdminDashboard';
 import DaycarePackages from './components/DaycarePackages';
 import FoodCart from './components/FoodCart';
 import AdminDaycare from './components/AdminDaycare'; 
+import ProductStore from './components/ProductStore';
+
 function App() {
   return (
     <Router>
@@ -34,6 +36,14 @@ function App() {
               <DaycarePackages />
             </ProtectedRoute>
           } />
+
+          <Route
+           path="/store"
+           element={
+           <ProtectedRoute>
+             <ProductStore />
+            </ProtectedRoute>
+          }/>
           
           {/* Feature 2: Admin Check-In/Out & History Routes */}
           <Route path="/admin/dashboard" element={
@@ -47,6 +57,14 @@ function App() {
               <AdminDaycare />
             </AdminProtectedRoute>
           } />
+
+          <Route
+           path="/admin/store"
+           element={
+           <AdminProtectedRoute>
+             <ProductStore />
+            </AdminProtectedRoute>
+          }/>
 
           <Route path="/" element={<ProtectedRoute><HomePage /></ProtectedRoute>} />
           <Route path="/pets" element={<ProtectedRoute><PetListingPage /></ProtectedRoute>} />
