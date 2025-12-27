@@ -1,7 +1,8 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-require('dotenv').config();
+
 
 // Import routes
 const daycareRoutes = require('./routes/daycareRoutes'); 

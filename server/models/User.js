@@ -2,6 +2,19 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
 const userSchema = new mongoose.Schema({
+  // OTP Group
+  otp: {
+    type: String
+  },
+  otpExpires: {
+    type: Date
+  },
+  isEmailVerified: {
+    type: Boolean,
+    default: false
+  },
+  
+  // Basic Info
   name: {
     type: String,
     required: [true, 'Please add a name']

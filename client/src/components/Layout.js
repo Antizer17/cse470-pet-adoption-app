@@ -288,9 +288,33 @@ const Layout = ({ children }) => {
                 e.currentTarget.style.transform = "translateY(0)";
               }}
             >
-              🛡️ Admin Dashboard
+              🛡️ Daycare Dashboard
             </Link>
+            
           )}
+          {isAdmin && (          <Link
+          to="/admin/dashboard"
+          style={{
+            padding: "10px 18px",
+            borderRadius: "12px",
+            background: colors.accent1,
+            border: `1px solid ${colors.accent1Border}`,
+            textDecoration: "none",
+            fontWeight: "600",
+            color: colors.text,
+            transition: "all 0.3s ease",
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = colors.accent1Hover;
+            e.currentTarget.style.transform = "translateY(-2px)";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = colors.accent1;
+            e.currentTarget.style.transform = "translateY(0)";
+          }}
+        >
+          🛍️ Admin Dashboard
+        </Link>)}
 
         </nav>
       )}
