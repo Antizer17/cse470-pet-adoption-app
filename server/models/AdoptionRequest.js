@@ -39,8 +39,24 @@ const AdoptionRequestSchema = new mongoose.Schema(
       trim: true,
     },
     preferredDate: {
-      type: String, // keep as string for simplicity (e.g. "2025-01-18")
+      type: String,
       trim: true,
+    },
+
+    // ✅ Feature 11/12 fields (REQUIRED)
+    status: {
+      type: String,
+      enum: ["pending", "approved", "rejected"],
+      default: "pending",
+    },
+    reviewedAt: {
+      type: Date,
+      default: null,
+    },
+    reviewedBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      default: null,
     },
   },
   { timestamps: true }

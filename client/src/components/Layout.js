@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom"; 
+import { Link, useLocation } from "react-router-dom";
 import "./layout.css";
 
 const Layout = ({ children }) => {
@@ -7,15 +7,15 @@ const Layout = ({ children }) => {
     const saved = localStorage.getItem("darkMode");
     return saved ? JSON.parse(saved) : false;
   });
-  
+
   // ✅ INSERTION 1: Get user info to check if they are an Admin
   const user = JSON.parse(localStorage.getItem("user"));
-  const isAdmin = user?.role === 'admin' || user?.isAdmin === true;
+  const isAdmin = user?.role === "admin" || user?.isAdmin === true;
 
-  const location = useLocation(); 
-  const isLoginPage = location.pathname === '/login';
-  const isRegisterPage = location.pathname === '/register';
-  const hideNavbar = isLoginPage || isRegisterPage; 
+  const location = useLocation();
+  const isLoginPage = location.pathname === "/login";
+  const isRegisterPage = location.pathname === "/register";
+  const hideNavbar = isLoginPage || isRegisterPage;
 
   useEffect(() => {
     localStorage.setItem("darkMode", JSON.stringify(darkMode));
@@ -46,7 +46,7 @@ const Layout = ({ children }) => {
       accent1Hover: "#A4D7E1",
       accent2: "#FFEFF9",
       accent2Border: "#F2C0E6",
-      accent2Hover: "#F2C0E6"
+      accent2Hover: "#F2C0E6",
     },
     dark: {
       background: "#1a1a2e",
@@ -60,8 +60,8 @@ const Layout = ({ children }) => {
       accent1Hover: "#2a4d7e",
       accent2: "#2d1b3d",
       accent2Border: "#4a2c6d",
-      accent2Hover: "#4a2c6d"
-    }
+      accent2Hover: "#4a2c6d",
+    },
   };
 
   const colors = darkMode ? theme.dark : theme.light;
@@ -73,7 +73,7 @@ const Layout = ({ children }) => {
         minHeight: "100vh",
         fontFamily: "Poppins, Arial, sans-serif",
         color: colors.text,
-        transition: "all 0.3s ease"
+        transition: "all 0.3s ease",
       }}
     >
       {!hideNavbar && (
@@ -85,11 +85,11 @@ const Layout = ({ children }) => {
             gap: "15px",
             padding: "20px",
             background: colors.navBackground,
-            boxShadow: darkMode 
-              ? "0 4px 12px rgba(0,0,0,0.2)" 
+            boxShadow: darkMode
+              ? "0 4px 12px rgba(0,0,0,0.2)"
               : "0 4px 12px rgba(0,0,0,0.05)",
             marginBottom: "40px",
-            transition: "all 0.3s ease"
+            transition: "all 0.3s ease",
           }}
         >
           <button
@@ -107,7 +107,7 @@ const Layout = ({ children }) => {
               alignItems: "center",
               gap: "8px",
               transition: "all 0.3s ease",
-              marginRight: "10px"
+              marginRight: "10px",
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = "translateY(-2px)";
@@ -193,6 +193,33 @@ const Layout = ({ children }) => {
             🐶 Pet Listings
           </Link>
 
+          {/* ✅ FEATURE-12 (USER ONLY): Adoption History */}
+          {!isAdmin && (
+            <Link
+              to="/history"
+              style={{
+                padding: "10px 18px",
+                borderRadius: "12px",
+                background: colors.accent2,
+                border: `1px solid ${colors.accent2Border}`,
+                textDecoration: "none",
+                fontWeight: "600",
+                color: colors.text,
+                transition: "all 0.3s ease",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = colors.accent2Hover;
+                e.currentTarget.style.transform = "translateY(-2px)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = colors.accent2;
+                e.currentTarget.style.transform = "translateY(0)";
+              }}
+            >
+              📜 My Adoption History
+            </Link>
+          )}
+
           <Link
             to="/register"
             style={{
@@ -242,28 +269,28 @@ const Layout = ({ children }) => {
           </Link>
 
           <Link
-          to="/store"
-          style={{
-            padding: "10px 18px",
-            borderRadius: "12px",
-            background: colors.accent1,
-            border: `1px solid ${colors.accent1Border}`,
-            textDecoration: "none",
-            fontWeight: "600",
-            color: colors.text,
-            transition: "all 0.3s ease",
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.background = colors.accent1Hover;
-            e.currentTarget.style.transform = "translateY(-2px)";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.background = colors.accent1;
-            e.currentTarget.style.transform = "translateY(0)";
-          }}
-        >
-          🛍️ Store
-        </Link>
+            to="/store"
+            style={{
+              padding: "10px 18px",
+              borderRadius: "12px",
+              background: colors.accent1,
+              border: `1px solid ${colors.accent1Border}`,
+              textDecoration: "none",
+              fontWeight: "600",
+              color: colors.text,
+              transition: "all 0.3s ease",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = colors.accent1Hover;
+              e.currentTarget.style.transform = "translateY(-2px)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = colors.accent1;
+              e.currentTarget.style.transform = "translateY(0)";
+            }}
+          >
+            🛍️ Store
+          </Link>
 
           {/* ✅ INSERTION 2: Admin Dashboard Button (Only visible if isAdmin is true) */}
           {isAdmin && (
@@ -272,7 +299,7 @@ const Layout = ({ children }) => {
               style={{
                 padding: "10px 18px",
                 borderRadius: "12px",
-                background: "#ff9800", // Distinct Orange for Admin
+                background: "#ff9800",
                 border: "none",
                 textDecoration: "none",
                 fontWeight: "600",
@@ -280,7 +307,7 @@ const Layout = ({ children }) => {
                 transition: "all 0.3s ease",
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = "#e68900"; // Darker Orange on hover
+                e.currentTarget.style.background = "#e68900";
                 e.currentTarget.style.transform = "translateY(-2px)";
               }}
               onMouseLeave={(e) => {
@@ -290,32 +317,60 @@ const Layout = ({ children }) => {
             >
               🛡️ Daycare Dashboard
             </Link>
-            
           )}
-          {isAdmin && (          <Link
-          to="/admin/dashboard"
-          style={{
-            padding: "10px 18px",
-            borderRadius: "12px",
-            background: colors.accent1,
-            border: `1px solid ${colors.accent1Border}`,
-            textDecoration: "none",
-            fontWeight: "600",
-            color: colors.text,
-            transition: "all 0.3s ease",
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.background = colors.accent1Hover;
-            e.currentTarget.style.transform = "translateY(-2px)";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.background = colors.accent1;
-            e.currentTarget.style.transform = "translateY(0)";
-          }}
-        >
-          🛍️ Admin Dashboard
-        </Link>)}
 
+          {/* ✅ FEATURE-11 NAV LINK (ADMIN ONLY) */}
+          {isAdmin && (
+            <Link
+              to="/admin/adoption-requests"
+              style={{
+                padding: "10px 18px",
+                borderRadius: "12px",
+                background: colors.accent2,
+                border: `1px solid ${colors.accent2Border}`,
+                textDecoration: "none",
+                fontWeight: "600",
+                color: colors.text,
+                transition: "all 0.3s ease",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = colors.accent2Hover;
+                e.currentTarget.style.transform = "translateY(-2px)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = colors.accent2;
+                e.currentTarget.style.transform = "translateY(0)";
+              }}
+            >
+              📨 Adoption Requests
+            </Link>
+          )}
+
+          {isAdmin && (
+            <Link
+              to="/admin/dashboard"
+              style={{
+                padding: "10px 18px",
+                borderRadius: "12px",
+                background: colors.accent1,
+                border: `1px solid ${colors.accent1Border}`,
+                textDecoration: "none",
+                fontWeight: "600",
+                color: colors.text,
+                transition: "all 0.3s ease",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = colors.accent1Hover;
+                e.currentTarget.style.transform = "translateY(-2px)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = colors.accent1;
+                e.currentTarget.style.transform = "translateY(0)";
+              }}
+            >
+              🛍️ Admin Dashboard
+            </Link>
+          )}
         </nav>
       )}
 
@@ -327,7 +382,7 @@ const Layout = ({ children }) => {
             fontWeight: "800",
             color: colors.text,
             marginBottom: "30px",
-            transition: "color 0.3s ease"
+            transition: "color 0.3s ease",
           }}
         >
           🐾 Fursure Pet Adoption
@@ -335,13 +390,15 @@ const Layout = ({ children }) => {
       )}
 
       {!hideNavbar && (
-        <div style={{
-          textAlign: "center",
-          marginBottom: "20px",
-          fontSize: "14px",
-          color: colors.text,
-          opacity: 0.7
-        }}>
+        <div
+          style={{
+            textAlign: "center",
+            marginBottom: "20px",
+            fontSize: "14px",
+            color: colors.text,
+            opacity: 0.7,
+          }}
+        >
           {darkMode ? "🌙 Dark Mode Active" : "☀️ Light Mode Active"}
         </div>
       )}
@@ -349,19 +406,21 @@ const Layout = ({ children }) => {
       <main>{children}</main>
 
       {!hideNavbar && (
-        <footer style={{
-          textAlign: "center",
-          padding: "20px",
-          marginTop: "40px",
-          background: darkMode ? "#16213e" : "#f5f5f5",
-          borderTop: `1px solid ${darkMode ? "#394989" : "#ddd"}`,
-          color: colors.text,
-          transition: "all 0.3s ease"
-        }}>
+        <footer
+          style={{
+            textAlign: "center",
+            padding: "20px",
+            marginTop: "40px",
+            background: darkMode ? "#16213e" : "#f5f5f5",
+            borderTop: `1px solid ${darkMode ? "#394989" : "#ddd"}`,
+            color: colors.text,
+            transition: "all 0.3s ease",
+          }}
+        >
           <p>© {new Date().getFullYear()} Fursure Pet Adoption. All rights reserved.</p>
           <p style={{ fontSize: "12px", opacity: 0.7 }}>
-            Dark mode: {darkMode ? "ON" : "OFF"} • 
-            Click the {darkMode ? "☀️ Light Mode" : "🌙 Dark Mode"} button to toggle
+            Dark mode: {darkMode ? "ON" : "OFF"} • Click the{" "}
+            {darkMode ? "☀️ Light Mode" : "🌙 Dark Mode"} button to toggle
           </p>
         </footer>
       )}

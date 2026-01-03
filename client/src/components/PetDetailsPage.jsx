@@ -191,9 +191,15 @@ export default function PetDetailsPage() {
       const result = await res.json(); // ✅ Changed from data to result
       console.log('Adoption submission result:', result);
 
-      if (!res.ok || !result.success) {
+      // ✅ Backend returns raw document (no "success"), so only check HTTP status.
+      // Also handle case where backend uses {success:false} in future.
+      if (!res.ok) {
+        throw new Error(result?.message || "Failed to submit adoption request");
+      }
+      if (result && result.success === false) {
         throw new Error(result.message || "Failed to submit adoption request");
       }
+
 
       setFormSuccess("Your adoption request has been sent!");
 
