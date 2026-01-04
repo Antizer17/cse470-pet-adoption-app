@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
+// --- Components ---
 import ProtectedRoute from './components/ProtectedRoutes';
 import AdminProtectedRoute from './components/AdminProtectedRoutes';
 import Layout from './components/Layout';
@@ -8,16 +9,15 @@ import Layout from './components/Layout';
 import HomePage from './components/HomePage';
 import PetListingPage from './components/PetListingPage';
 import PetDetailsPage from './components/PetDetailsPage';
-
 import Login from './components/Login';
 import Register from './components/Register';
 import AdminDashboard from './components/AdminDashboard';
-import AdminAdoptionRequests from './components/AdminAdoptionRequests'; // ✅ FEATURE-11
-import AdoptionHistory from './components/AdoptionHistory'; // ✅ FEATURE-12 (USER)
+import AdminAdoptionRequests from './components/AdminAdoptionRequests'; 
+import AdoptionHistory from './components/AdoptionHistory'; 
 import DaycarePackages from './components/DaycarePackages';
 import FoodCart from './components/FoodCart';
-import AdminDaycare from './components/AdminDaycare';
 import ProductStore from './components/ProductStore';
+import AdminDaycareDashboard from './components/AdminDaycareDashboard'; 
 
 function App() {
   return (
@@ -29,8 +29,8 @@ function App() {
           {/* Public routes */}
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-
-          {/* Protected routes */}
+          
+          {/* Protected User Routes */}
           <Route
             path="/home"
             element={
@@ -58,7 +58,6 @@ function App() {
             }
           />
 
-          {/* ✅ FEATURE-12 (USER): Adoption History */}
           <Route
             path="/history"
             element={
@@ -68,7 +67,7 @@ function App() {
             }
           />
 
-          {/* Admin routes */}
+          {/* --- ADMIN ROUTES --- */}
           <Route
             path="/admin/dashboard"
             element={
@@ -78,7 +77,6 @@ function App() {
             }
           />
 
-          {/* ✅ FEATURE-11 ADMIN PAGE */}
           <Route
             path="/admin/adoption-requests"
             element={
@@ -92,7 +90,7 @@ function App() {
             path="/admin/daycare"
             element={
               <AdminProtectedRoute>
-                <AdminDaycare />
+                <AdminDaycareDashboard />
               </AdminProtectedRoute>
             }
           />
@@ -106,7 +104,7 @@ function App() {
             }
           />
 
-          {/* Pets */}
+          {/* Pet Routes */}
           <Route
             path="/pets"
             element={
@@ -125,7 +123,7 @@ function App() {
             }
           />
 
-          {/* Default */}
+          {/* Default Route */}
           <Route
             path="/"
             element={

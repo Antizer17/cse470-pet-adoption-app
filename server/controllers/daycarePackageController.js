@@ -21,12 +21,12 @@ const createDaycarePackage = async (req, res) => {
     }
 };
 
-// --- Sprint 2: Feature 1 - Booking (Updated with Date Check) ---
+// --- Sprint 2: Feature 1 - Booking ---
 const createBooking = async (req, res) => {
     try {
         const { petName, packageId, bookingDate } = req.body;
         
-        // REFIX: Availability Check specifically for the requested date
+        // Availability Check specifically for the requested date
         const bookingCount = await DaycareBooking.countDocuments({ 
             bookingDate: bookingDate, 
             status: { $ne: 'Cancelled' } 
@@ -37,7 +37,7 @@ const createBooking = async (req, res) => {
         }
 
         const newBooking = new DaycareBooking({
-            user: req.user.id, // Authenticated user ID
+            user: req.user ? req.user.id : null, // Handles authenticated user
             petName,
             package: packageId,
             bookingDate
@@ -50,7 +50,6 @@ const createBooking = async (req, res) => {
     }
 };
 
-// --- Sprint 2: Feature 2 - Check-In / Check-Out Logic ---
 // --- Sprint 2: Feature 2 - Check-In / Check-Out Logic ---
 const updateBookingStatus = async (req, res) => {
     try {
@@ -66,7 +65,7 @@ const updateBookingStatus = async (req, res) => {
         // 2. Update the status
         booking.status = status;
 
-        // 3. FIXED: Set the time explicitly based on the new status
+        // 3. Set the time explicitly based on the new status
         if (status === 'Checked-In') {
             booking.checkInTime = new Date(); // Saves current server time
         } else if (status === 'Checked-Out') {
@@ -87,7 +86,6 @@ const updateBookingStatus = async (req, res) => {
     }
 };
 
-// --- Sprint 2: Feature 2 - Admin Booking List ---
 const getBookingStatus = async (req, res) => {
     try {
         const bookings = await DaycareBooking.find()
@@ -101,10 +99,40 @@ const getBookingStatus = async (req, res) => {
     }
 };
 
+// --- Sprint 3: Real-Time Availability Check (NEW) ---
+const checkAvailability = async (req, res) => {
+    try {
+        const { date } = req.query;
+        const MAX_CAPACITY = 10; // Set your daily limit here
+
+        if (!date) return res.status(400).json({ message: "Please provide a date" });
+
+        const currentBookings = await DaycareBooking.countDocuments({
+            bookingDate: date,
+            status: { $ne: 'Cancelled' }
+        });
+
+        const remainingSpots = MAX_CAPACITY - currentBookings;
+
+        res.json({
+            date: date,
+            booked: currentBookings,
+            capacity: MAX_CAPACITY,
+            remainingSpots: remainingSpots > 0 ? remainingSpots : 0,
+            isFull: currentBookings >= MAX_CAPACITY
+        });
+
+    } catch (error) {
+        console.error("Availability Check Error:", error);
+        res.status(500).json({ message: "Server Error checking availability" });
+    }
+};
+
 module.exports = {
     getDaycarePackages,
     createDaycarePackage,
     createBooking,
     updateBookingStatus,
-    getBookingStatus
+    getBookingStatus,
+    checkAvailability // <--- Now exported safely
 };
