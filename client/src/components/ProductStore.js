@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./ProductStore.css";
 import { useFoodCart } from "../foodcontext/FoodCartContext";
-import { Link } from "react-router-dom";  // ✅ add
+import { Link } from "react-router-dom";  // ✅ added Link
 
 const ProductStore = () => {
   const [products, setProducts] = useState([]);
@@ -38,7 +38,7 @@ const ProductStore = () => {
         <h1>🛍️ Fursure Pet Store</h1>
         <p>Everything your pet needs, delivered with love</p>
 
-        {/* ✅ Cart link (do NOT type URL manually) */}
+        {/* Cart link (do NOT type URL manually) */}
         <div style={{ marginTop: 12 }}>
           <Link to="/foodcart" style={{ textDecoration: "none", fontWeight: 700 }}>
             🛒 View Cart ({cartItems.length})
@@ -92,6 +92,10 @@ const ProductStore = () => {
                   >
                     Add to Cart
                   </button>
+                  {/* Link to Product Details Page */}
+                  <Link to={`/food-details/${product._id}`}>
+                    <button className="view-details-btn">View Details</button>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -102,6 +106,16 @@ const ProductStore = () => {
               No items found in this category.
             </p>
           )}
+        </div>
+      )}
+      {/* Checkout Button - Only visible if there are items in the cart */}
+      {cartItems.length > 0 && (
+        <div style={{ marginTop: "20px", textAlign: "center" }}>
+          <Link to="/checkout">
+            <button className="checkout-button">
+              Go to Checkout ({cartItems.length} items)
+            </button>
+          </Link>
         </div>
       )}
     </div>

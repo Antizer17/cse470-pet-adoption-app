@@ -10,6 +10,7 @@ import Layout from './components/Layout';
 import HomePage from './components/HomePage';
 import PetListingPage from './components/PetListingPage';
 import PetDetailsPage from './components/PetDetailsPage';
+import PetFoodDetailsPage from './components/PetFoodDetailsPage'; // ✅ Import PetFoodDetailsPage
 import Login from './components/Login';
 import Register from './components/Register';
 import AdminDashboard from './components/AdminDashboard';
@@ -19,6 +20,8 @@ import DaycarePackages from './components/DaycarePackages';
 import FoodCart from './components/FoodCart';
 import ProductStore from './components/ProductStore';
 import AdminDaycareDashboard from './components/AdminDaycareDashboard'; 
+import CheckoutPage from './components/CheckoutPage';
+
 
 function App() {
   return (
@@ -62,6 +65,12 @@ function App() {
             }
           />
 
+          {/* Pet Food Details Page Route */}
+          <Route 
+            path="/food-details/:id"  // The `id` is passed as a URL param for the product
+            element={<PetFoodDetailsPage />}  // Show the PetFoodDetailsPage component
+          />
+          
           <Route
             path="/history"
             element={
@@ -123,6 +132,15 @@ function App() {
             element={
               <ProtectedRoute>
                 <PetDetailsPage />
+              </ProtectedRoute>
+            }
+          />
+          {/* Checkout Route */}
+          <Route
+            path="/checkout"
+            element={
+              <ProtectedRoute>
+                <CheckoutPage />
               </ProtectedRoute>
             }
           />
