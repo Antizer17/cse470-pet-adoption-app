@@ -10,7 +10,7 @@ const petRoutes = require('./routes/petRoutes.js');
 const adoptionRoutes = require('./routes/adoptionRoutes.js');
 const adminRoutes = require('./routes/adminRoutes'); // ✅ IMPORT
 const authRoutes = require('./routes/auth'); // Assuming this exists
-
+const orderRoutes = require('./routes/order.routes'); // Import order routes
 const app = express();
 
 // Middleware
@@ -29,6 +29,7 @@ app.use('/api/daycare', daycareRoutes);
 app.use('/api/foods', require('./routes/foodRoutes'));  
 app.use('/api/pets', petRoutes);
 app.use('/api/adoption-requests', adoptionRoutes);
+app.use('/api/orders', orderRoutes);
 
 // Database connection & Server Listener Logic
 const MONGODB_URI = process.env.MONGODB_URI; 

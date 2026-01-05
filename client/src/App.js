@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import ProtectedRoute from './components/ProtectedRoutes';
@@ -8,6 +8,7 @@ import Layout from './components/Layout';
 import HomePage from './components/HomePage';
 import PetListingPage from './components/PetListingPage';
 import PetDetailsPage from './components/PetDetailsPage';
+import PetFoodDetailsPage from './components/PetFoodDetailsPage'; // ✅ Import PetFoodDetailsPage
 
 import Login from './components/Login';
 import Register from './components/Register';
@@ -18,6 +19,7 @@ import DaycarePackages from './components/DaycarePackages';
 import FoodCart from './components/FoodCart';
 import AdminDaycare from './components/AdminDaycare';
 import ProductStore from './components/ProductStore';
+import CheckoutPage from './components/CheckoutPage';
 
 function App() {
   return (
@@ -39,7 +41,6 @@ function App() {
               </ProtectedRoute>
             }
           />
-
           <Route
             path="/daycare"
             element={
@@ -48,7 +49,6 @@ function App() {
               </ProtectedRoute>
             }
           />
-
           <Route
             path="/store"
             element={
@@ -57,8 +57,14 @@ function App() {
               </ProtectedRoute>
             }
           />
-
-          {/* ✅ FEATURE-12 (USER): Adoption History */}
+          
+          {/* Pet Food Details Page Route */}
+          <Route 
+            path="/food-details/:id"  // The `id` is passed as a URL param for the product
+            element={<PetFoodDetailsPage />}  // Show the PetFoodDetailsPage component
+          />
+          
+          {/* Other routes */}
           <Route
             path="/history"
             element={
@@ -77,8 +83,6 @@ function App() {
               </AdminProtectedRoute>
             }
           />
-
-          {/* ✅ FEATURE-11 ADMIN PAGE */}
           <Route
             path="/admin/adoption-requests"
             element={
@@ -87,7 +91,6 @@ function App() {
               </AdminProtectedRoute>
             }
           />
-
           <Route
             path="/admin/daycare"
             element={
@@ -96,7 +99,6 @@ function App() {
               </AdminProtectedRoute>
             }
           />
-
           <Route
             path="/admin/store"
             element={
@@ -115,7 +117,6 @@ function App() {
               </ProtectedRoute>
             }
           />
-
           <Route
             path="/pets/:id"
             element={
@@ -124,7 +125,17 @@ function App() {
               </ProtectedRoute>
             }
           />
-
+          
+          {/* Checkout Route */}
+          <Route
+            path="/checkout"
+            element={
+              <ProtectedRoute>
+                <CheckoutPage />
+              </ProtectedRoute>
+            }
+          />
+          
           {/* Default */}
           <Route
             path="/"

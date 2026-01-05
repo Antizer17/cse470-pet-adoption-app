@@ -103,6 +103,21 @@
   transform: translateY(-2px);
 }
 
+.checkout-button {
+  background-color: #4CAF50;  /* Green background */
+  color: white;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.checkout-button:hover {
+  background-color: #45a049;  /* Darker green on hover */
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .product-store {
