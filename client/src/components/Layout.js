@@ -193,7 +193,6 @@ const Layout = ({ children }) => {
             🐶 Pet Listings
           </Link>
 
-          {/* ✅ FEATURE-12 (USER ONLY): Adoption History */}
           {!isAdmin && (
             <Link
               to="/history"
@@ -292,7 +291,6 @@ const Layout = ({ children }) => {
             🛍️ Store
           </Link>
 
-          {/* ✅ INSERTION 2: Admin Dashboard Button (Only visible if isAdmin is true) */}
           {isAdmin && (
             <Link
               to="/admin/daycare"
@@ -319,7 +317,6 @@ const Layout = ({ children }) => {
             </Link>
           )}
 
-          {/* ✅ FEATURE-11 NAV LINK (ADMIN ONLY) */}
           {isAdmin && (
             <Link
               to="/admin/adoption-requests"
@@ -417,6 +414,21 @@ const Layout = ({ children }) => {
             transition: "all 0.3s ease",
           }}
         >
+          {/* ✅ FOOTER LINK FOR ABOUT US */}
+          <div style={{ marginBottom: "10px" }}>
+            <Link 
+              to="/about" 
+              style={{ 
+                color: colors.text, 
+                textDecoration: "underline", 
+                fontSize: "14px",
+                fontWeight: "600" 
+              }}
+            >
+              About Us
+            </Link>
+          </div>
+
           <p>© {new Date().getFullYear()} Fursure Pet Adoption. All rights reserved.</p>
           <p style={{ fontSize: "12px", opacity: 0.7 }}>
             Dark mode: {darkMode ? "ON" : "OFF"} • Click the{" "}

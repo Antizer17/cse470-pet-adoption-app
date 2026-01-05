@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 // --- Components ---
+import AboutUs from './components/AboutUs';
 import ProtectedRoute from './components/ProtectedRoutes';
 import AdminProtectedRoute from './components/AdminProtectedRoutes';
 import Layout from './components/Layout';
@@ -30,6 +31,9 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           
+          {/* ✅ FIXED: Added AboutUs route inside Routes container */}
+          <Route path="/about" element={<AboutUs />} />
+
           {/* Protected User Routes */}
           <Route
             path="/home"
